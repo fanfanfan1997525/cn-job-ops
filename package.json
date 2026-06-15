@@ -2,6 +2,7 @@
   "name": "cn-job-ops",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Local-first CLI assistant for domestic job search tracking, evaluation, drafts, and reports.",
   "main": "./dist/src/index.js",
