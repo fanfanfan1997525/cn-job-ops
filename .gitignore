@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+.cn-job-ops/
+.cn-job-ops-*/
+artifacts/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+coverage/
+.cn-job-ops-smoke/

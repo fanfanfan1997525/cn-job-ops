@@ -5,57 +5,67 @@
 See: .planning/PROJECT.md (updated 2026-06-15)
 
 **Core value:** Help the user avoid wasting time on bad or risky roles by turning domestic job listings into local, explainable, privacy-preserving decisions and drafts, with the user always approving any external action.
-**Current focus:** Phase 1 - Local Safety Foundation
+**Current focus:** v1 implementation complete; ready for user trial with local fixture/manual workflows.
 
 ## Current Position
 
-Phase: 1 of 7 (Local Safety Foundation)
-Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-06-15 - Initialized GSD project, research, requirements, roadmap, and state.
+Phase: 7 of 7 (Dashboard and Release Hardening)
+Plan: all roadmap plans complete
+Status: Complete
+Last activity: 2026-06-15 - Implemented v1 vertical CLI with TDD, Claude decision review, docs, release checks, and GSD phase verification artifacts.
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: n/a
-- Total execution time: 0 hours
+- Total roadmap plans completed: 23
+- Phase execution mode: autonomous TDD vertical slice
+- Total execution time: current session
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1. Local Safety Foundation | 3 | 3 | current session |
+| 2. Provider Discovery MVP | 3 | 3 | current session |
+| 3. Canonical Data and Tracker | 3 | 3 | current session |
+| 4. Evaluation and Risk Engine | 4 | 4 | current session |
+| 5. Draft Generation | 3 | 3 | current session |
+| 6. Scan and Report Workflow | 3 | 3 | current session |
+| 7. Dashboard and Release Hardening | 4 | 4 | current session |
 
-**Recent Trend:**
-- Last 5 plans: n/a
-- Trend: n/a
+## Verification Snapshot
 
-*Updated after each plan completion*
+- `npm test` passed: 7 files, 25 tests.
+- `npm run typecheck` passed.
+- `npm run build` passed.
+- `npm audit --json` returned 0 vulnerabilities.
+- `npm run smoke` passed.
+- `npm pack --dry-run` passed with 24 allowlisted files.
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- Initialization: Build as local CLI/MCP, not cloud SaaS.
-- Initialization: Use `mcp-jobs` as first domestic discovery provider but not as compliance proof.
-- Initialization: Keep apply/chat/send draft-only in v1.
-- Initialization: Use SQLite plus Markdown for local state and readable artifacts.
+- Keep v1 local-first and CLI-first.
+- Keep runtime data under gitignored `.cn-job-ops/`.
+- Treat `mcp-jobs` as `user_opt_in`, not compliance proof.
+- Keep `boss-cli` and `liepin-cli` as descriptor-only `unknown` providers in v1.
+- Split job entities from source observations in SQLite.
+- Use risk veto separate from fit score; hard veto for training-loan/upfront-fee patterns.
+- Drafts are local review artifacts only and never send/upload/chat/apply.
+- Dashboard is read-only, non-interactive terminal output in v1.
+- MCP is a dependency-free placeholder only.
 
 ### Pending Todos
 
-None yet.
+None for v1. User trial should use fixture/manual workflows first.
 
 ### Blockers/Concerns
 
-- Named GSD subagents are not installed in this runtime, so initialization research and roadmap were generated inline.
-- Git author identity was missing; local repository identity was set to `Codex Agent <codex-agent@local.invalid>` for planning commits only.
-- No public official job-seeker CLI/API was found for BOSS/Liepin/Zhaopin/51job during initialization research; provider work must verify official sources before upgrading any provider to approved.
+- Live provider execution remains intentionally blocked pending official source-linked approvals.
+- `node:sqlite` requires the Node runtime to expose `node:sqlite`; current machine verified this before implementation.
 
 ## Deferred Items
 
@@ -68,5 +78,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-06-15
-Stopped at: Project initialized; next step is planning Phase 1.
+Stopped at: v1 complete and verified.
 Resume file: None

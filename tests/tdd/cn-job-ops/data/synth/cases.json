@@ -1,0 +1,242 @@
+[
+  {
+    "id": "high-fit-ai-platform",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "liepin",
+      "url": "https://example.test/jobs/ai-platform-1",
+      "title": "AI Platform Product Manager",
+      "company": "North Star AI",
+      "city": "上海",
+      "salary": "35-50K·14薪",
+      "experience": "5-10年",
+      "education": "本科",
+      "tags": ["AI", "平台", "B端", "增长"],
+      "description": "负责AI平台产品规划、企业客户需求分析、数据驱动增长和跨团队交付。",
+      "fetchedAt": "2026-06-10T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 35,
+      "salaryMaxK": 50,
+      "scoreAtLeast": 4.2,
+      "recommendation": "apply",
+      "riskFlags": []
+    }
+  },
+  {
+    "id": "low-fit-embedded",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "boss",
+      "url": "https://example.test/jobs/embedded-1",
+      "title": "嵌入式驱动工程师",
+      "company": "ChipWorks",
+      "city": "深圳",
+      "salary": "25-35K",
+      "experience": "3-5年",
+      "education": "本科",
+      "tags": ["C", "驱动", "RTOS"],
+      "description": "负责底层驱动、RTOS调试、硬件Bring-up。",
+      "fetchedAt": "2026-06-11T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 25,
+      "salaryMaxK": 35,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": []
+    }
+  },
+  {
+    "id": "training-loan-risk",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "boss",
+      "url": "https://example.test/jobs/training-risk-1",
+      "title": "AI产品助理",
+      "company": "Future Academy",
+      "city": "北京",
+      "salary": "30-60K",
+      "experience": "经验不限",
+      "education": "不限",
+      "tags": ["培训", "AI"],
+      "description": "零基础高薪就业，先参加岗前培训，可办理培训贷，包上岗。",
+      "fetchedAt": "2026-06-11T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 30,
+      "salaryMaxK": 60,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": ["training_loan", "unrealistic_salary"]
+    }
+  },
+  {
+    "id": "upfront-fee-risk",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "51job",
+      "url": "https://example.test/jobs/fee-risk-1",
+      "title": "产品运营",
+      "company": "QuickHire",
+      "city": "广州",
+      "salary": "12-18K",
+      "experience": "1-3年",
+      "education": "大专",
+      "tags": ["运营"],
+      "description": "入职前需缴纳资料费和保证金，审核通过后安排岗位。",
+      "fetchedAt": "2026-06-12T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 12,
+      "salaryMaxK": 18,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": ["upfront_fee"]
+    }
+  },
+  {
+    "id": "off-platform-risk",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "liepin",
+      "url": "https://example.test/jobs/off-platform-1",
+      "title": "增长产品经理",
+      "company": "TrafficLab",
+      "city": "杭州",
+      "salary": "25-40K",
+      "experience": "3-5年",
+      "education": "本科",
+      "tags": ["增长", "数据"],
+      "description": "先加微信详聊，不在平台沟通，需转账保留名额。",
+      "fetchedAt": "2026-06-13T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 25,
+      "salaryMaxK": 40,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": ["off_platform_lure", "upfront_fee"]
+    }
+  },
+  {
+    "id": "stale-ghost-risk",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "zhilian",
+      "url": "https://example.test/jobs/stale-1",
+      "title": "商业化产品经理",
+      "company": "OldPost Co",
+      "city": "上海",
+      "salary": "30-45K",
+      "experience": "5-10年",
+      "education": "本科",
+      "tags": ["商业化", "数据"],
+      "description": "长期招聘，岗位长期有效，发布日期很早。",
+      "fetchedAt": "2026-03-01T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 30,
+      "salaryMaxK": 45,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": ["stale_or_ghost"]
+    }
+  },
+  {
+    "id": "agency-ambiguity",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "boss",
+      "url": "https://example.test/jobs/agency-1",
+      "title": "AI产品经理",
+      "company": "某知名互联网公司代招",
+      "city": "北京",
+      "salary": "28-42K",
+      "experience": "3-5年",
+      "education": "本科",
+      "tags": ["AI", "平台"],
+      "description": "猎头代招，客户信息面试前保密，外包合同。",
+      "fetchedAt": "2026-06-13T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 28,
+      "salaryMaxK": 42,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": ["agency_ambiguity"]
+    }
+  },
+  {
+    "id": "duplicate-url",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "liepin",
+      "url": "https://example.test/jobs/ai-platform-1",
+      "title": "AI平台产品经理",
+      "company": "North Star AI",
+      "city": "上海",
+      "salary": "35-50K·14薪",
+      "experience": "5-10年",
+      "education": "本科",
+      "tags": ["平台", "AI", "B端"],
+      "description": "负责 AI 平台产品规划、企业客户需求分析、数据驱动增长和跨团队交付。",
+      "fetchedAt": "2026-06-14T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 35,
+      "salaryMaxK": 50,
+      "scoreAtLeast": 4.2,
+      "recommendation": "apply",
+      "riskFlags": []
+    }
+  },
+  {
+    "id": "missing-salary",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "manual",
+      "url": "https://example.test/jobs/no-salary-1",
+      "title": "数据产品经理",
+      "company": "MetricWorks",
+      "city": "上海",
+      "salary": "薪资面议",
+      "experience": "3-5年",
+      "education": "本科",
+      "tags": ["数据", "SaaS"],
+      "description": "负责指标体系、数据产品需求和客户成功协作。",
+      "fetchedAt": "2026-06-12T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": null,
+      "salaryMaxK": null,
+      "scoreBelow": 4,
+      "recommendation": "do_not_apply",
+      "riskFlags": []
+    }
+  },
+  {
+    "id": "multi-city-parse-change",
+    "raw": {
+      "providerId": "fixture",
+      "platform": "mcp-jobs",
+      "url": "https://example.test/jobs/multi-city-1",
+      "title": "资深产品经理",
+      "company": "Parse Shift Ltd",
+      "city": "上海/杭州",
+      "salary": "40K以上",
+      "experience": "5年以上",
+      "education": "本科",
+      "tags": ["AI", "SaaS", "B端"],
+      "description": "负责跨城市团队产品规划，字段格式与标准 fixture 有差异。",
+      "fetchedAt": "2026-06-12T09:00:00.000Z"
+    },
+    "expected": {
+      "salaryMinK": 40,
+      "salaryMaxK": null,
+      "scoreAtLeast": 4,
+      "recommendation": "apply",
+      "riskFlags": []
+    }
+  }
+]

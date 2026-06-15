@@ -84,37 +84,37 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PROF-01 | Phase 1 | Pending |
-| PROF-02 | Phase 1 | Pending |
-| PROF-03 | Phase 1 | Pending |
-| PROF-04 | Phase 1 | Pending |
-| PROV-01 | Phase 2 | Pending |
-| PROV-02 | Phase 2 | Pending |
-| PROV-03 | Phase 2 | Pending |
-| PROV-04 | Phase 1 | Pending |
-| PROV-05 | Phase 2 | Pending |
-| DATA-01 | Phase 3 | Pending |
-| DATA-02 | Phase 3 | Pending |
-| DATA-03 | Phase 3 | Pending |
-| DATA-04 | Phase 3 | Pending |
-| EVAL-01 | Phase 4 | Pending |
-| EVAL-02 | Phase 4 | Pending |
-| EVAL-03 | Phase 4 | Pending |
-| EVAL-04 | Phase 4 | Pending |
-| EVAL-05 | Phase 4 | Pending |
-| DRFT-01 | Phase 5 | Pending |
-| DRFT-02 | Phase 5 | Pending |
-| DRFT-03 | Phase 5 | Pending |
-| DRFT-04 | Phase 5 | Pending |
-| DRFT-05 | Phase 5 | Pending |
-| SCAN-01 | Phase 6 | Pending |
-| SCAN-02 | Phase 6 | Pending |
-| SCAN-03 | Phase 6 | Pending |
-| UX-01 | Phase 7 | Pending |
-| UX-02 | Phase 7 | Pending |
-| QA-01 | Phase 7 | Pending |
-| QA-02 | Phase 7 | Pending |
-| QA-03 | Phase 7 | Pending |
+| PROF-01 | Phase 1 | Complete |
+| PROF-02 | Phase 1 | Complete |
+| PROF-03 | Phase 1 | Complete |
+| PROF-04 | Phase 1 | Complete |
+| PROV-01 | Phase 2 | Complete |
+| PROV-02 | Phase 2 | Complete |
+| PROV-03 | Phase 2 | Complete |
+| PROV-04 | Phase 1 | Complete |
+| PROV-05 | Phase 2 | Complete |
+| DATA-01 | Phase 3 | Complete |
+| DATA-02 | Phase 3 | Complete |
+| DATA-03 | Phase 3 | Complete |
+| DATA-04 | Phase 3 | Complete |
+| EVAL-01 | Phase 4 | Complete |
+| EVAL-02 | Phase 4 | Complete |
+| EVAL-03 | Phase 4 | Complete |
+| EVAL-04 | Phase 4 | Complete |
+| EVAL-05 | Phase 4 | Complete |
+| DRFT-01 | Phase 5 | Complete |
+| DRFT-02 | Phase 5 | Complete |
+| DRFT-03 | Phase 5 | Complete |
+| DRFT-04 | Phase 5 | Complete |
+| DRFT-05 | Phase 5 | Complete |
+| SCAN-01 | Phase 6 | Complete |
+| SCAN-02 | Phase 6 | Complete |
+| SCAN-03 | Phase 6 | Complete |
+| UX-01 | Phase 7 | Complete |
+| UX-02 | Phase 7 | Complete |
+| QA-01 | Phase 7 | Complete |
+| QA-02 | Phase 7 | Complete |
+| QA-03 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 31 total

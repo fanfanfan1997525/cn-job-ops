@@ -10,13 +10,13 @@ Build the project as a vertical MVP: first a safe local workspace and profile, t
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions marked with INSERTED
 
-- [ ] **Phase 1: Local Safety Foundation** - Scaffold the local CLI workspace, profile storage, and policy guardrails.
-- [ ] **Phase 2: Provider Discovery MVP** - Add provider contracts, `mcp-jobs`, manual import, and audit events.
-- [ ] **Phase 3: Canonical Data and Tracker** - Normalize, deduplicate, persist, and export job pipeline state.
-- [ ] **Phase 4: Evaluation and Risk Engine** - Score roles, explain recommendations, and detect domestic fraud/ghost risks.
-- [ ] **Phase 5: Draft Generation** - Generate resume, cover note, and greeting drafts with manual approval.
-- [ ] **Phase 6: Scan and Report Workflow** - Add saved searches, repeated scans, provider health, and weekly reports.
-- [ ] **Phase 7: Dashboard and Release Hardening** - Add local inspection UI, test coverage, packaging docs, and release readiness.
+- [x] **Phase 1: Local Safety Foundation** - Scaffold the local CLI workspace, profile storage, and policy guardrails.
+- [x] **Phase 2: Provider Discovery MVP** - Add provider contracts, `mcp-jobs`, manual import, and audit events.
+- [x] **Phase 3: Canonical Data and Tracker** - Normalize, deduplicate, persist, and export job pipeline state.
+- [x] **Phase 4: Evaluation and Risk Engine** - Score roles, explain recommendations, and detect domestic fraud/ghost risks.
+- [x] **Phase 5: Draft Generation** - Generate resume, cover note, and greeting drafts with manual approval.
+- [x] **Phase 6: Scan and Report Workflow** - Add saved searches, repeated scans, provider health, and weekly reports.
+- [x] **Phase 7: Dashboard and Release Hardening** - Add local inspection UI, test coverage, packaging docs, and release readiness.
 
 ## Phase Details
 
@@ -36,9 +36,9 @@ Build the project as a vertical MVP: first a safe local workspace and profile, t
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01: Scaffold CLI/config/data layout and gitignored runtime paths.
-- [ ] 01-02: Implement profile onboarding, schema validation, and completeness checks.
-- [ ] 01-03: Implement policy gate skeleton, unsafe-operation blocks, and redaction tests.
+- [x] 01-01: Scaffold CLI/config/data layout and gitignored runtime paths.
+- [x] 01-02: Implement profile onboarding, schema validation, and completeness checks.
+- [x] 01-03: Implement policy gate skeleton, unsafe-operation blocks, and redaction tests.
 
 ### Phase 2: Provider Discovery MVP
 **Goal:** User can discover/import domestic job listings through gated providers, starting with `mcp-jobs` and manual import, with auditable failure handling.
@@ -56,9 +56,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 02-01: Define provider interface, descriptors, config, and policy integration.
-- [ ] 02-02: Implement `mcp-jobs` adapter and manual import adapter with fixtures.
-- [ ] 02-03: Implement provider audit log and failure classification tests.
+- [x] 02-01: Define provider interface, descriptors, config, and policy integration.
+- [x] 02-02: Implement `mcp-jobs` adapter and manual import adapter with fixtures.
+- [x] 02-03: Implement provider audit log and failure classification tests.
 
 ### Phase 3: Canonical Data and Tracker
 **Goal:** User can store, deduplicate, inspect, and export a local job pipeline independent of provider quirks.
@@ -75,9 +75,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 03-01: Implement canonical job schema, salary/city parsers, and raw snapshot references.
-- [ ] 03-02: Implement SQLite tracker, dedup keys, and status history.
-- [ ] 03-03: Implement CLI inspection and Markdown/TSV exports.
+- [x] 03-01: Implement canonical job schema, salary/city parsers, and raw snapshot references.
+- [x] 03-02: Implement SQLite tracker, dedup keys, and status history.
+- [x] 03-03: Implement CLI inspection and Markdown/TSV exports.
 
 ### Phase 4: Evaluation and Risk Engine
 **Goal:** User can evaluate any tracked job with explainable fit scoring, recommendation threshold, and domestic fraud/ghost-posting risk analysis.
@@ -95,10 +95,10 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 04-01: Design scoring rubric, profile/job evidence model, and report format.
-- [ ] 04-02: Implement evaluation engine and score threshold behavior.
-- [ ] 04-03: Implement domestic fraud/ghost risk detector with fixtures.
-- [ ] 04-04: Implement evaluation cache keyed by job hash and profile version.
+- [x] 04-01: Design scoring rubric, profile/job evidence model, and report format.
+- [x] 04-02: Implement evaluation engine and score threshold behavior.
+- [x] 04-03: Implement domestic fraud/ghost risk detector with fixtures.
+- [x] 04-04: Implement evaluation cache keyed by job hash and profile version.
 
 ### Phase 5: Draft Generation
 **Goal:** User can generate locally saved resume, cover note, and BOSS/Liepin greeting drafts for shortlisted jobs, with clear manual review boundaries.
@@ -116,9 +116,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 05-01: Implement resume variant generation and fact-grounding checks.
-- [ ] 05-02: Implement cover note and BOSS/Liepin greeting draft generation.
-- [ ] 05-03: Implement draft artifact storage, labels, and no-external-side-effect tests.
+- [x] 05-01: Implement resume variant generation and fact-grounding checks.
+- [x] 05-02: Implement cover note and BOSS/Liepin greeting draft generation.
+- [x] 05-03: Implement draft artifact storage, labels, and no-external-side-effect tests.
 
 ### Phase 6: Scan and Report Workflow
 **Goal:** User can save search profiles, run repeated scans safely, evaluate changed/new opportunities, and receive a weekly market/report summary.
@@ -135,9 +135,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 06-01: Implement saved search profiles and scan orchestration.
-- [ ] 06-02: Implement provider health and incremental evaluation flow.
-- [ ] 06-03: Implement weekly report generation and regression fixtures.
+- [x] 06-01: Implement saved search profiles and scan orchestration.
+- [x] 06-02: Implement provider health and incremental evaluation flow.
+- [x] 06-03: Implement weekly report generation and regression fixtures.
 
 ### Phase 7: Dashboard and Release Hardening
 **Goal:** User can inspect the pipeline through a local UI/TUI and the project has enough tests, docs, and packaging to be safely used.
@@ -155,10 +155,10 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 07-01: Implement local dashboard/TUI over tracker state.
-- [ ] 07-02: Consolidate automated tests and smoke workflow.
-- [ ] 07-03: Write setup, provider-risk, and user-data documentation.
-- [ ] 07-04: Package CLI/MCP entrypoints and run release readiness checks.
+- [x] 07-01: Implement local dashboard/TUI over tracker state.
+- [x] 07-02: Consolidate automated tests and smoke workflow.
+- [x] 07-03: Write setup, provider-risk, and user-data documentation.
+- [x] 07-04: Package CLI/MCP entrypoints and run release readiness checks.
 
 ## Progress
 
@@ -167,10 +167,10 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Local Safety Foundation | 0/3 | Not started | - |
-| 2. Provider Discovery MVP | 0/3 | Not started | - |
-| 3. Canonical Data and Tracker | 0/3 | Not started | - |
-| 4. Evaluation and Risk Engine | 0/4 | Not started | - |
-| 5. Draft Generation | 0/3 | Not started | - |
-| 6. Scan and Report Workflow | 0/3 | Not started | - |
-| 7. Dashboard and Release Hardening | 0/4 | Not started | - |
+| 1. Local Safety Foundation | 3/3 | Complete | 2026-06-15 |
+| 2. Provider Discovery MVP | 3/3 | Complete | 2026-06-15 |
+| 3. Canonical Data and Tracker | 3/3 | Complete | 2026-06-15 |
+| 4. Evaluation and Risk Engine | 4/4 | Complete | 2026-06-15 |
+| 5. Draft Generation | 3/3 | Complete | 2026-06-15 |
+| 6. Scan and Report Workflow | 3/3 | Complete | 2026-06-15 |
+| 7. Dashboard and Release Hardening | 4/4 | Complete | 2026-06-15 |
