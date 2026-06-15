@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { join } from "node:path";
+import { readFileSync } from "node:fs";
 import { completeProfile, loadCases, tempWorkspace } from "./helpers.js";
 import { AuditLog } from "../../../src/audit.js";
 import { classifyProviderError, getProviderDescriptors } from "../../../src/providers/registry.js";
 import { FixtureProvider } from "../../../src/providers/fixture.js";
+import { LiepinOfficialProvider } from "../../../src/providers/liepinOfficial.js";
 import { ManualImportProvider } from "../../../src/providers/manual.js";
 import { McpJobsProvider } from "../../../src/providers/mcpJobs.js";
 
@@ -18,7 +20,10 @@ describe("provider discovery contract", () => {
       expect(["approved", "fixture", "manual", "unknown", "user_opt_in"]).toContain(descriptor.approvalStatus);
     }
     expect(descriptors.find((d) => d.id === "mcp-jobs")?.approvalStatus).toBe("user_opt_in");
-    expect(descriptors.find((d) => d.id === "liepin-cli")?.approvalStatus).toBe("unknown");
+    expect(descriptors.find((d) => d.id === "liepin-official-mcp")?.approvalStatus).toBe("user_opt_in");
+    expect(descriptors.find((d) => d.id === "liepin-official-mcp")?.capabilities).toEqual(["search", "detail"]);
+    expect(descriptors.find((d) => d.id === "liepin-official-mcp")?.executable).toBe(true);
+    expect(descriptors.find((d) => d.id === "liepin-cli")?.approvalStatus).toBe("user_opt_in");
     expect(descriptors.find((d) => d.id === "boss-cli")?.approvalStatus).toBe("unknown");
   });
 
@@ -62,9 +67,9 @@ describe("provider discovery contract", () => {
     expect(result.jobs[0].source.providerId).toBe("mcp-jobs");
   });
 
-  it("does not expose executable adapters for unknown boss-cli or liepin-cli providers", () => {
+  it("does not expose executable adapters for unknown boss-cli providers", () => {
     const descriptors = getProviderDescriptors();
-    for (const id of ["boss-cli", "liepin-cli"]) {
+    for (const id of ["boss-cli"]) {
       const descriptor = descriptors.find((d) => d.id === id);
       expect(descriptor?.approvalStatus).toBe("unknown");
       expect(descriptor?.executable).toBe(false);
@@ -73,9 +78,70 @@ describe("provider discovery contract", () => {
     }
   });
 
+  it("integrates Liepin official MCP through a search-only CLI adapter", async () => {
+    const output = readFileSync(new URL("./data/synth/liepin-official-search.json", import.meta.url), "utf8");
+    const calls: Array<{ command: string; args: string[]; env: NodeJS.ProcessEnv }> = [];
+    const officialCommand = process.execPath;
+    const provider = new LiepinOfficialProvider({
+      enabled: true,
+      command: officialCommand,
+      token: "liepin_user_token_test",
+      runner: async (command, args, env) => {
+        calls.push({ command, args, env });
+        return { stdout: output, stderr: "" };
+      }
+    });
+
+    const result = await provider.search({ keyword: "AI产品经理", cities: ["上海"], salaryMinK: 30, salaryMaxK: 50 });
+
+    expect(result.status).toBe("success");
+    expect(result.jobs[0].source.providerId).toBe("liepin-official-mcp");
+    expect(result.jobs[0].company).toBe("Official Liepin Co");
+    expect(result.jobs[0].salary.minK).toBe(35);
+    expect(calls[0].command).toBe(officialCommand);
+    expect(calls[0].args).toEqual(expect.arrayContaining(["search-job", "--jobName", "AI产品经理", "--address", "上海", "--salary", "30-50k", "--json"]));
+    expect(calls[0].args).not.toEqual(expect.arrayContaining(["apply-job", "update-resume"]));
+    expect(calls[0].env.LIEPIN_USER_TOKEN).toBe("liepin_user_token_test");
+  });
+
+  it("keeps Liepin official MCP disabled or auth-failed as structured provider failures", async () => {
+    await expect(new LiepinOfficialProvider({ enabled: false }).search({ keyword: "AI" })).resolves.toMatchObject({ status: "blocked" });
+    const shouldNotRun = async () => {
+      throw new Error("runner should not execute without an explicit absolute official command");
+    };
+    await expect(new LiepinOfficialProvider({ enabled: true, token: "liepin_user_token_test", runner: shouldNotRun }).search({ keyword: "AI" })).resolves.toMatchObject({ status: "unsupported" });
+    await expect(new LiepinOfficialProvider({ enabled: true, command: "liepin-cli", token: "liepin_user_token_test", runner: shouldNotRun }).search({ keyword: "AI" })).resolves.toMatchObject({ status: "unsupported" });
+    const shellShim = process.platform === "win32" ? "C:\\Liepin\\liepin-mcp.cmd" : "/tmp/liepin-mcp.cmd";
+    await expect(new LiepinOfficialProvider({ enabled: true, command: shellShim, token: "liepin_user_token_test", runner: shouldNotRun }).search({ keyword: "AI" })).resolves.toMatchObject({ status: "unsupported" });
+
+    const secret = "liepin_user_token_test";
+    const result = await new LiepinOfficialProvider({
+      enabled: true,
+      command: process.execPath,
+      token: secret,
+      runner: async () => {
+        throw new Error(`HTTP 401 token expired ${secret}`);
+      }
+    }).search({ keyword: "AI" });
+    expect(result.status).toBe("login_required");
+    expect(result.failureReason).toContain("[REDACTED:provider-secret]");
+    expect(result.failureReason).not.toContain(secret);
+
+    await expect(
+      new LiepinOfficialProvider({
+        enabled: true,
+        command: process.execPath,
+        runner: async () => {
+          throw new Error("HTTP 401 token expired");
+        }
+      }).search({ keyword: "AI" })
+    ).resolves.toMatchObject({ status: "login_required" });
+  });
+
   it("classifies provider errors and writes redacted audit events", async () => {
     expect(classifyProviderError(new Error("429 too many requests"))).toBe("rate_limited");
     expect(classifyProviderError(new Error("selector missing card title"))).toBe("parse_changed");
+    expect(classifyProviderError(new Error("spawn liepin-cli ENOENT"))).toBe("unsupported");
     expect(classifyProviderError(new Error("ECONNRESET"))).toBe("transient_failure");
 
     const ws = tempWorkspace();

@@ -31,4 +31,40 @@ describe("CLI, dashboard, docs, and release smoke", () => {
       ws.cleanup();
     }
   });
+
+  it("requires an explicit Liepin credential before live search execution", async () => {
+    const ws = tempWorkspace();
+    try {
+      const workspace = join(ws.dir, ".cn-job-ops");
+      const result = await runCli(["liepin-search", "--workspace", workspace, "--keyword", "AI", "--token-env", "CN_JOB_OPS_TEST_MISSING_LIEPIN_TOKEN"], { cwd: ws.dir });
+      expect(result.code).toBe(1);
+      expect(result.stderr).toContain("liepin-search login_required");
+      expect(result.stderr).toContain("CN_JOB_OPS_TEST_MISSING_LIEPIN_TOKEN");
+    } finally {
+      ws.cleanup();
+    }
+  });
+
+  it("requires an explicit absolute Liepin MCP command before live search execution", async () => {
+    const ws = tempWorkspace();
+    const tokenEnv = "CN_JOB_OPS_TEST_LIEPIN_TOKEN";
+    const previous = process.env[tokenEnv];
+    process.env[tokenEnv] = "liepin_user_token_test";
+    try {
+      const workspace = join(ws.dir, ".cn-job-ops");
+      const missingCommand = await runCli(["liepin-search", "--workspace", workspace, "--keyword", "AI", "--token-env", tokenEnv], { cwd: ws.dir });
+      expect(missingCommand.code).toBe(1);
+      expect(missingCommand.stderr).toContain("liepin-search unsupported");
+      expect(existsSync(join(workspace, "tracker.sqlite"))).toBe(false);
+
+      const nakedCommand = await runCli(["liepin-search", "--workspace", workspace, "--keyword", "AI", "--token-env", tokenEnv, "--command", "liepin-cli"], { cwd: ws.dir });
+      expect(nakedCommand.code).toBe(1);
+      expect(nakedCommand.stderr).toContain("liepin-search unsupported");
+      expect(existsSync(join(workspace, "tracker.sqlite"))).toBe(false);
+    } finally {
+      if (previous === undefined) delete process.env[tokenEnv];
+      else process.env[tokenEnv] = previous;
+      ws.cleanup();
+    }
+  });
 });

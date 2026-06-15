@@ -7,6 +7,8 @@ export * from "./jobs/normalize.js";
 export * from "./mcp.js";
 export * from "./policy.js";
 export * from "./profile.js";
+export * from "./providers/liepinOfficial.js";
+export * from "./providers/registry.js";
 export * from "./reports.js";
 export * from "./scan.js";
 export * from "./tracker.js";

@@ -1,0 +1,19 @@
+{
+  "data": {
+    "list": [
+      {
+        "jobId": "liepin-001",
+        "jobName": "AI平台产品经理",
+        "companyName": "Official Liepin Co",
+        "salary": "35-50k",
+        "address": "上海",
+        "experience": "5-10年",
+        "education": "本科",
+        "jobLabels": ["AI", "平台", "B端"],
+        "jobDescription": "负责AI平台产品规划、企业客户需求分析和跨团队交付。",
+        "jobUrl": "https://www.liepin.com/job/liepin-001.shtml",
+        "refreshTime": "2026-06-15T08:00:00.000Z"
+      }
+    ]
+  }
+}

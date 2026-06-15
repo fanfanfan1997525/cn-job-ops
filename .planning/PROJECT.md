@@ -38,7 +38,7 @@ Help the user avoid wasting time on bad or risky roles by turning domestic job l
 
 - The reference WeChat article describes Career-Ops as an open-source AI job-search CLI that evaluates listings, generates tailored resumes, scans portals, keeps data local, and recommends applying selectively rather than broadly.
 - The upstream Career-Ops repository currently describes a local AI CLI workflow with structured evaluation, tailored PDFs, portal scanning, batch processing, tracker integrity, Playwright liveness checks, and human-in-the-loop decisions.
-- The domestic integration reality is different from Ashby/Greenhouse/Lever. Major Chinese platforms are platform apps with anti-automation and restrictive terms. Public official job-seeker APIs or official CLIs for BOSS/Liepin were not found during initialization research.
+- The domestic integration reality is different from Ashby/Greenhouse/Lever. Major Chinese platforms are platform apps with anti-automation and restrictive terms. Liepin now has a public official MCP server page for AI job-search clients; direct browsing can still hit platform safety controls. Public official job-seeker CLI/MCP entries for BOSS, Zhaopin, 51job, and Lagou were not found during the latest search.
 - A third-party MCP package, `mcp-jobs`, exists and advertises zero-config aggregation across mainstream Chinese job sites including BOSS, Liepin, Zhaopin, and 51job. It is useful as the first discovery provider but must be treated as a capability, not as compliance proof.
 - Apify provides CLI/API Actors for Lagou and other Chinese job boards, but these are paid third-party scrapers and should be optional providers with explicit user opt-in.
 - BOSS HI, Liepin, and Zhaopin terms/legal pages contain restrictions against unauthorized programmatic extraction or crawler-style access. This project therefore needs hard compliance gates and conservative defaults.
@@ -59,6 +59,7 @@ Help the user avoid wasting time on bad or risky roles by turning domestic job l
 |----------|-----------|---------|
 | Build a new local project rather than forking Career-Ops immediately | The domestic platform/compliance problem is different enough to define requirements first | - Pending |
 | Use `mcp-jobs` as the first v1 discovery provider | It is the closest CLI/MCP-style domestic job aggregation tool found during research | - Pending |
+| Enable `liepin-official-mcp` as user-opt-in search-only execution | Liepin publishes an official MCP server page and credential flow for AI clients, but the schema has not been verified with a real credential; high-risk apply/resume/chat actions remain blocked | - Accepted 2026-06-15 after Claude review fixes |
 | Treat `mcp-jobs` and Apify as third-party providers, not official platform APIs | Their existence does not override BOSS/Liepin/Zhaopin terms or user account risk | - Pending |
 | Keep applications and chat actions human-approved | Domestic platforms are chat/account centric and automated action has high blast radius | - Pending |
 | Store canonical data locally in SQLite plus Markdown exports | SQLite supports dedup/query/status; Markdown keeps artifacts inspectable and portable | - Pending |

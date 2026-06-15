@@ -5,8 +5,8 @@ CN Job Ops is a local-first CLI for domestic job-search operations: importing/se
 ## Safety Boundary
 
 - v1 does not automatically apply, send, upload, log in, chat, solve CAPTCHA, evade bans, or harvest credentials.
-- Live domestic providers are not enabled by default.
-- `manual` and `fixture` are executable. `mcp-jobs` is opt-in and runner-injected. `boss-cli` and `liepin-cli` are descriptor-only in v1.
+- Live domestic providers are not enabled by default; commands that call them must be explicit.
+- `manual`, `fixture`, and user-opt-in `liepin-official-mcp` search import are executable. `mcp-jobs` is opt-in and runner-injected. `boss-cli` remains descriptor-only; third-party `liepin-cli` remains a non-executable descriptor unless a later review approves it.
 - Runtime data lives under `.cn-job-ops/` and is gitignored.
 
 ## Setup
@@ -31,6 +31,7 @@ npm run build
 cn-job-ops init --workspace .cn-job-ops
 cn-job-ops providers
 cn-job-ops fixture-search --workspace .cn-job-ops --fixture jobs.json --keyword AI
+cn-job-ops liepin-search --workspace .cn-job-ops --keyword AI产品经理 --city 上海 --token-env LIEPIN_USER_TOKEN --command C:\Path\From\Liepin\MCP\Json\liepin-mcp.exe
 cn-job-ops evaluate --workspace .cn-job-ops --all
 cn-job-ops draft --workspace .cn-job-ops --first-shortlisted
 cn-job-ops export --workspace .cn-job-ops --format markdown

@@ -5,6 +5,7 @@ import { pathToFileURL } from "node:url";
 import { generateDraftArtifacts } from "./drafts.js";
 import { evaluateJob } from "./evaluation.js";
 import { FixtureProvider } from "./providers/fixture.js";
+import { LiepinOfficialProvider } from "./providers/liepinOfficial.js";
 import { ManualImportProvider } from "./providers/manual.js";
 import { getProviderDescriptors } from "./providers/registry.js";
 import { readProfile, validateProfile } from "./profile.js";
@@ -48,6 +49,35 @@ export async function runCli(args: string[], options: { cwd?: string } = {}): Pr
         }
         tracker.close();
         return ok(`fixture-search ${result.status}: imported ${imported}\n`);
+      }
+      case "liepin-search": {
+        const workspace = workspaceArg(args, cwd);
+        const keyword = requiredArg(args, "--keyword");
+        const tokenEnv = argValue(args, "--token-env") ?? "LIEPIN_USER_TOKEN";
+        if (!process.env[tokenEnv]) return fail(`liepin-search login_required: missing ${tokenEnv}\n`);
+        const provider = new LiepinOfficialProvider({
+          enabled: true,
+          command: argValue(args, "--command"),
+          tokenEnv
+        });
+        const result = await provider.search({
+          keyword,
+          cities: argValue(args, "--city") ? [argValue(args, "--city") as string] : undefined,
+          salaryMinK: numberArg(args, "--salary-min-k"),
+          salaryMaxK: numberArg(args, "--salary-max-k")
+        });
+        if (result.status !== "success" && result.status !== "empty") {
+          return fail(`liepin-search ${result.status}: ${result.failureReason ?? result.status}\n`);
+        }
+        if (result.status === "empty") return ok("liepin-search empty: imported 0\n");
+        const tracker = openTracker(workspace);
+        let imported = 0;
+        for (const job of result.jobs) {
+          tracker.upsertJob(job);
+          imported += 1;
+        }
+        tracker.close();
+        return ok(`liepin-search ${result.status}: imported ${imported}\n`);
       }
       case "manual-import": {
         const workspace = workspaceArg(args, cwd);
@@ -172,6 +202,14 @@ function argValue(args: string[], name: string) {
   return index >= 0 ? args[index + 1] : undefined;
 }
 
+function numberArg(args: string[], name: string) {
+  const value = argValue(args, name);
+  if (!value) return undefined;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) throw new Error(`invalid numeric argument ${name}`);
+  return parsed;
+}
+
 function requiredArg(args: string[], name: string) {
   const value = argValue(args, name);
   if (!value) throw new Error(`missing required argument ${name}`);
@@ -191,6 +229,7 @@ function help() {
   init --workspace <dir>
   providers
   fixture-search --workspace <dir> --fixture <json> --keyword <term>
+  liepin-search --workspace <dir> --keyword <term> --command <absolute official MCP command path> [--city <city>] [--salary-min-k <n>] [--salary-max-k <n>] [--token-env LIEPIN_USER_TOKEN]
   manual-import --workspace <dir> --file <json>
   evaluate --workspace <dir> --all
   draft --workspace <dir> --first-shortlisted

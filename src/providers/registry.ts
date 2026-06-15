@@ -43,12 +43,22 @@ export function getProviderDescriptors(): ProviderDescriptor[] {
       executable: true
     },
     {
-      id: "liepin-cli",
-      label: "Liepin CLI/MCP descriptor",
+      id: "liepin-official-mcp",
+      label: "Liepin official MCP",
       platforms: ["liepin"],
-      approvalStatus: "unknown",
+      approvalStatus: "user_opt_in",
       capabilities: ["search", "detail"],
-      rateLimit: "unknown; descriptor only in v1",
+      rateLimit: "official credential and explicit absolute command path required; default disabled",
+      failureTypes: providerFailureTypes,
+      executable: true
+    },
+    {
+      id: "liepin-cli",
+      label: "Third-party Liepin CLI/MCP descriptor",
+      platforms: ["liepin"],
+      approvalStatus: "user_opt_in",
+      capabilities: ["search", "detail"],
+      rateLimit: "third-party token wrapper; descriptor only unless explicitly injected",
       failureTypes: providerFailureTypes,
       executable: false
     },
@@ -68,9 +78,9 @@ export function getProviderDescriptors(): ProviderDescriptor[] {
 export function classifyProviderError(error: unknown): ProviderFailure {
   const message = error instanceof Error ? error.message.toLowerCase() : String(error).toLowerCase();
   if (/429|rate|throttle|too many/.test(message)) return "rate_limited";
-  if (/login|auth|cookie|credential|unauthorized/.test(message)) return "login_required";
+  if (/\b401\b|login|auth|cookie|credential|token|unauthorized/.test(message)) return "login_required";
   if (/legal|robots|tos|terms/.test(message)) return "legal_blocked";
-  if (/unsupported|not implemented|capability/.test(message)) return "unsupported";
+  if (/unsupported|not implemented|capability|enoent|not found|not recognized/.test(message)) return "unsupported";
   if (/selector|parse|schema|layout|missing card/.test(message)) return "parse_changed";
   if (/blocked|captcha|ban|forbidden/.test(message)) return "blocked";
   return "transient_failure";
