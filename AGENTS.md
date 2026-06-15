@@ -116,6 +116,14 @@ Provider integrations must declare capabilities and approval status before they 
 - Treat `mcp-jobs`, Apify Actors, and any scraper-like provider as third-party capabilities, not as platform authorization. Upgrade a provider to approved only with source-linked official documentation.
 - Live platform probes must be opt-in, rate-limited, and fixture-backed. Default tests should use redacted fixtures.
 
+## Autonomous Execution Rules
+
+- For this project, prioritize accuracy, evidence, and review depth over token/time savings. Do not reduce context reading, test coverage, or verification merely to finish faster.
+- Before each phase's implementation plan is locked, ask Claude CLI for an independent decision review and record the result in the phase context or plan artifact.
+- For material design choices, safety grey areas, provider approval changes, data/privacy boundaries, scoring rubric changes, and release-readiness calls, Claude CLI must participate before the decision is treated as accepted.
+- Claude review is advisory but must be answered explicitly: accept, reject, or defer each substantive Claude concern with a reason.
+- If Claude CLI is unavailable, record the failure and use a manual second-pass review before proceeding.
+
 <!-- GSD:skills-start source:skills/ -->
 ## Project Skills
 
